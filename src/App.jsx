@@ -1,62 +1,64 @@
 import React, { useState } from "react";
-import PizzaList from "./components/PizzaList";
-import Cart from "./components/CART.JSX";
 import Navbar from "./components/Navbar";
-import Header from "./components/Header";
 import Footer from "./components/Footer";
-import { pizzas } from "./data/pizzas";
+import Home from "./components/Home";
+import Pizza from "./components/Pizza";
+import Cart from "./components/Cart";
+
+
+const Header = ({ onNavigate, cartTotal }) => {
+  return (
+    <header className="header">
+      <div className="header-container">
+        <div className="header-logo">
+          <h1>Pizzería Mamma Mia!</h1>
+        </div>
+        <nav className="header-nav">
+          <ul>
+            <li onClick={() => onNavigate("home")}>
+              <a href="#">🏠 Home</a>
+            </li>
+            <li onClick={() => onNavigate("login")}>
+              <a href="#">🔑 Login</a>
+            </li>
+            <li onClick={() => onNavigate("register")}>
+              <a href="#">📝 Register</a>
+            </li>
+          </ul>
+        </nav>
+        <div className="header-cart">
+          🛒 Total: <span>${cartTotal.toFixed(2)}</span>
+        </div>
+      </div>
+    </header>
+  );
+};
 
 const App = () => {
-  const [cart, setCart] = useState([]);
+  const [currentView, setCurrentView] = useState("home");
+  const [selectedPizzaId, setSelectedPizzaId] = useState(null);
+  const [cartTotal, setCartTotal] = useState(0); 
 
- 
-  const addToCart = (pizza) => {
-    const pizzaInCart = cart.find((item) => item.id === pizza.id);
-    if (pizzaInCart) {
-      setCart(
-        cart.map((item) =>
-          item.id === pizza.id
-            ? { ...item, count: item.count + 1 }
-            : item
-        )
-      );
-    } else {
-      setCart([...cart, { ...pizza, count: 1 }]); 
+  const handleViewChange = (view, pizzaId = null) => {
+    setCurrentView(view);
+    if (pizzaId) {
+      setSelectedPizzaId(pizzaId);
     }
-  };
-
-  const removeFromCart = (pizzaId) => {
-    setCart(cart.filter((pizza) => pizza.id !== pizzaId));
-  };
-
-  const updateQuantity = (pizzaId, change) => {
-    setCart(
-      cart.map((pizza) =>
-        pizza.id === pizzaId
-          ? {
-              ...pizza,
-              count: pizza.count + change > 0 ? pizza.count + change : 1,
-            }
-          : pizza
-      )
-    );
-  };
-
-  const calculateTotal = () => {
-    return cart.reduce((total, pizza) => total + pizza.price * pizza.count, 0);
   };
 
   return (
     <div className="app">
-      <Navbar />
-      <Header />
-      <PizzaList addToCart={addToCart} pizzas={pizzas} />
-      <Cart
-        cart={cart}
-        removeFromCart={removeFromCart}
-        updateQuantity={updateQuantity}
-        calculateTotal={calculateTotal}
-      />
+      {}
+      <Header onNavigate={handleViewChange} cartTotal={cartTotal} />
+      <main>
+        {currentView === "home" && (
+          <Home
+            onSelectPizza={(pizzaId) => handleViewChange("pizza", pizzaId)}
+          />
+        )}
+        {currentView === "pizza" && <Pizza pizzaId={selectedPizzaId} />}
+        {currentView === "cart" && <Cart />}
+      </main>
       <Footer />
     </div>
   );

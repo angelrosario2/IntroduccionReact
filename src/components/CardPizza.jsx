@@ -1,20 +1,27 @@
 import React from "react";
 
-const CardPizza = ({ pizza, addToCart }) => {
+const PizzaCard = ({ pizza, onAddToCart, onViewDetails }) => {
   return (
     <div className="pizza-card">
-      <img src={pizza.img} alt={pizza.name} />
-      <h3>{pizza.name}</h3>
-      <p>{pizza.desc}</p>
-      <ul>
-        {pizza.ingredients.map((ingredient, index) => (
-          <li key={index}>{ingredient}</li>
-        ))}
-      </ul>
-      <p>Precio: ${pizza.price}</p>
-      <button onClick={() => addToCart(pizza)}>Agregar al carrito</button>
+      <img src={pizza.img} alt={pizza.name} className="pizza-image" />
+      <h3 className="pizza-name">{pizza.name}</h3>
+      <p className="pizza-ingredients">
+        <span role="img" aria-label="ingredients">
+          🍕
+        </span>{" "}
+        {pizza.ingredients.join(", ")}
+      </p>
+      <p className="pizza-price">Precio: ${pizza.price.toLocaleString()}</p>
+      <div className="pizza-buttons">
+        <button onClick={() => onViewDetails(pizza.id)} className="btn view-btn">
+          Ver Más <span role="img" aria-label="eye">👀</span>
+        </button>
+        <button onClick={() => onAddToCart(pizza)} className="btn add-btn">
+          Añadir <span role="img" aria-label="cart">🛒</span>
+        </button>
+      </div>
     </div>
   );
 };
 
-export default CardPizza;
+export default PizzaCard;

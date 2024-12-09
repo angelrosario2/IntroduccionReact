@@ -1,40 +1,39 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-const Pizza = ({ pizzaId }) => {
+const Pizza = () => {
+  const { id } = useParams();
   const [pizza, setPizza] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPizza = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/pizzas/${pizzaId}`);
+        const response = await fetch(`http://localhost:5000/api/pizzas/${id}`);
+        if (!response.ok) {
+          throw new Error("Error al obtener la pizza");
+        }
         const data = await response.json();
         setPizza(data);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching pizza:", error);
+        console.error("Error al cargar la pizza:", error);
       }
     };
 
     fetchPizza();
-  }, [pizzaId]);
+  }, [id]);
 
-  if (loading) {
-    return <p>Cargando pizza...</p>;
-  }
-
-  if (!pizza) {
-    return <p>No se encontró la pizza.</p>;
-  }
+  if (loading) return <p>Cargando pizza...</p>;
 
   return (
-    <div className="pizza-detail">
-      <img src={pizza.img} alt={pizza.name} />
-      <h2>{pizza.name}</h2>
+    <div>
+      <h1>{pizza.name}</h1>
+      <img src={pizza.img} alt={pizza.name} style={{ width: "300px" }} />
       <p>{pizza.desc}</p>
-      <p><strong>Precio:</strong> ${pizza.price}</p>
+      <p>Precio: ${pizza.price}</p>
+      <h3>Ingredientes:</h3>
       <ul>
-        <strong>Ingredientes:</strong>
         {pizza.ingredients.map((ingredient, index) => (
           <li key={index}>{ingredient}</li>
         ))}
