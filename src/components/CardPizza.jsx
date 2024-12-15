@@ -12,7 +12,7 @@ const PizzaCard = ({ pizza, onAddToCart, onViewDetails }) => {
       <p>Ingredientes: {pizza.ingredients.join(", ")}</p>
       <p><strong>Precio: ${pizza.price}</strong></p>
       <button onClick={onViewDetails} style={{ marginRight: "10px" }}>
-        Ver Más 👁️
+        Ver Más 👀
       </button>
       <button onClick={onAddToCart}>
         Añadir 🛒
