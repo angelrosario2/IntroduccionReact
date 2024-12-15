@@ -2,24 +2,21 @@ import React from "react";
 
 const PizzaCard = ({ pizza, onAddToCart, onViewDetails }) => {
   return (
-    <div className="pizza-card">
-      <img src={pizza.img} alt={pizza.name} className="pizza-image" />
-      <h3 className="pizza-name">{pizza.name}</h3>
-      <p className="pizza-ingredients">
-        <span role="img" aria-label="ingredients">
-          🍕
-        </span>{" "}
-        {pizza.ingredients.join(", ")}
-      </p>
-      <p className="pizza-price">Precio: ${pizza.price.toLocaleString()}</p>
-      <div className="pizza-buttons">
-        <button onClick={() => onViewDetails(pizza.id)} className="btn view-btn">
-          Ver Más <span role="img" aria-label="eye">👀</span>
-        </button>
-        <button onClick={() => onAddToCart(pizza)} className="btn add-btn">
-          Añadir <span role="img" aria-label="cart">🛒</span>
-        </button>
-      </div>
+    <div style={{ border: "1px solid #ccc", borderRadius: "10px", padding: "10px", width: "250px" }}>
+      <img
+        src={pizza.img} 
+        alt={pizza.name}
+        style={{ width: "100%", height: "150px", objectFit: "cover", borderRadius: "10px" }}
+      />
+      <h2>{pizza.name}</h2>
+      <p>Ingredientes: {pizza.ingredients.join(", ")}</p>
+      <p><strong>Precio: ${pizza.price}</strong></p>
+      <button onClick={onViewDetails} style={{ marginRight: "10px" }}>
+        Ver Más 👁️
+      </button>
+      <button onClick={onAddToCart}>
+        Añadir 🛒
+      </button>
     </div>
   );
 };

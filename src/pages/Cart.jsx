@@ -1,28 +1,20 @@
 import React from "react";
 
-const Cart = ({ cart, removeFromCart, updateQuantity, calculateTotal }) => {
+const Cart = ({ cart }) => {
   return (
-    <div className="cart">
-      <h2>Carrito de compras</h2>
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h1>🛒 Carrito de Compras</h1>
       {cart.length === 0 ? (
-        <p>El carrito está vacío.</p>
+        <p>Tu carrito está vacío</p>
       ) : (
-        cart.map((pizza) => (
-          <div key={pizza.id} className="cart-item">
-            <img src={pizza.img} alt={pizza.name} />
-            <h3>{pizza.name}</h3>
-            <p>Precio: ${pizza.price}</p>
-            <p>
-              Cantidad:{" "}
-              <button onClick={() => updateQuantity(pizza.id, -1)}>-</button>
-              {pizza.count}
-              <button onClick={() => updateQuantity(pizza.id, 1)}>+</button>
-            </p>
-            <button onClick={() => removeFromCart(pizza.id)}>Eliminar</button>
-          </div>
-        ))
+        <ul style={{ listStyle: "none", padding: 0 }}>
+          {cart.map((pizza, index) => (
+            <li key={index} style={{ margin: "10px 0", fontSize: "18px" }}>
+              {pizza.name} - ${pizza.price}
+            </li>
+          ))}
+        </ul>
       )}
-      <h3>Total: ${calculateTotal()}</h3>
     </div>
   );
 };

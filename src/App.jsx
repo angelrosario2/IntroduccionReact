@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
@@ -10,15 +10,22 @@ import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
 const App = () => {
+  const [cart, setCart] = useState([]); 
+
+  
+  const addToCart = (pizza) => {
+    setCart((prevCart) => [...prevCart, pizza]);
+  };
+
   return (
     <Router>
-      <Navbar />
+      <Navbar cartTotal={cart.length} />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home onAddToCart={addToCart} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/pizza/:id" element={<Pizza />} />
+        <Route path="/cart" element={<Cart cart={cart} />} />
+        <Route path="/pizza/:id" element={<Pizza onAddToCart={addToCart} />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

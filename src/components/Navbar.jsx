@@ -1,13 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({ cartTotal }) => {
   return (
     <nav style={{ display: "flex", justifyContent: "space-around", padding: "10px", background: "#f8f8f8" }}>
-      <Link to="/" style={{ textDecoration: "none", fontWeight: "bold" }}>🏠 Home</Link>
-      <Link to="/register" style={{ textDecoration: "none" }}>📝 Register</Link>
-      <Link to="/login" style={{ textDecoration: "none" }}>🔑 Login</Link>
-      <Link to="/cart" style={{ textDecoration: "none" }}>🛒 Total: $25.000</Link>
+      <Link to="/">🏠 Home</Link>
+      <Link to="/register">📝 Register</Link>
+      <Link to="/login">🔑 Login</Link>
+      <Link to="/cart" style={{ fontWeight: "bold" }}>
+        🛒 Total: {cartTotal} pizzas
+      </Link>
     </nav>
   );
 };
