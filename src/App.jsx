@@ -9,26 +9,31 @@ import Pizza from "./pages/Pizza";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
+
+export const CartContext = React.createContext();
+
 const App = () => {
   const [cart, setCart] = useState([]); 
-
   
   const addToCart = (pizza) => {
     setCart((prevCart) => [...prevCart, pizza]);
   };
 
+  
   return (
     <Router>
-      <Navbar cartTotal={cart.length} />
+      <CartContext.Provider value={{ cart, addToCart }}>
+      <Navbar  />
       <Routes>
-        <Route path="/" element={<Home onAddToCart={addToCart} />} />
+        <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/cart" element={<Cart cart={cart} />} />
-        <Route path="/pizza/:id" element={<Pizza onAddToCart={addToCart} />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/pizza/:id" element={<Pizza />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      </CartContext.Provider>
     </Router>
   );
 };

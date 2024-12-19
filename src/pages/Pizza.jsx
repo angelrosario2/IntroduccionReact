@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { CartContext } from "../App";
 
 const Pizza = () => {
   const { id } = useParams();
   const [pizza, setPizza] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const { addToCart } = React.useContext(CartContext);
+  
   useEffect(() => {
     const fetchPizza = async () => {
       try {
@@ -38,7 +40,7 @@ const Pizza = () => {
           <li key={index}>{ingredient}</li>
         ))}
       </ul>
-      <button>Añadir al carrito</button>
+      <button onClick={() => addToCart(pizza)}>Añadir al carrito</button>        
     </div>
   );
 };

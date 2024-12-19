@@ -1,6 +1,8 @@
 import React from "react";
+import { CartContext } from "../App";
 
-const Cart = ({ cart }) => {
+const Cart = () => {
+   const { cart } = React.useContext(CartContext);
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
       <h1>🛒 Carrito de Compras</h1>
