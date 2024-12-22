@@ -1,14 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../App";
 
 const Navbar = () => {
-  let sum = 0;
+  const { cart } = useContext(CartContext);
 
-  const { cart } = React.useContext(CartContext);
-  for (let i = 0; i < cart.length; i++) {
-    sum += cart[i].price;
-  }
+  
+  const total = cart.reduce((sum, item) => sum + item.price * item.count, 0);
 
   return (
     <nav
@@ -23,7 +21,7 @@ const Navbar = () => {
       <Link to="/register">📝 Register</Link>
       <Link to="/login">🔑 Login</Link>
       <Link to="/cart" style={{ fontWeight: "bold" }}>
-        🛒 Total: {sum}
+        🛒 Total: ${total}
       </Link>
     </nav>
   );
