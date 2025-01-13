@@ -1,17 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { CartContext } from "../App";
 
 const Cart = () => {
-  const { cart, removeFromCart } = useContext(CartContext);
-  const [totalPrice, setTotalPrice] = useState(0);
+  const { cart, removeFromCart, getTotalPrice } = useContext(CartContext);
 
-  useEffect(() => {
-    const calculateTotal = () => {
-      const total = cart.reduce((sum, item) => sum + item.price * item.count, 0);
-      setTotalPrice(total);
-    };
-    calculateTotal();
-  }, [cart]); 
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
       <h1>🛒 Carrito de Compras</h1>
@@ -19,7 +11,7 @@ const Cart = () => {
         <p>Tu carrito está vacío</p>
       ) : (
         <>
-          <ul style={{ listStyle: "none", padding: 0 }}>
+          <ul style={{ listStyle: "none", padding: 0, maxWidth: "600px", margin: "0 auto" }}>
             {cart.map((pizza, index) => (
               <li
                 key={index}
@@ -32,6 +24,7 @@ const Cart = () => {
                   padding: "10px",
                   border: "1px solid #ccc",
                   borderRadius: "5px",
+                  backgroundColor: "#f9f9f9",
                 }}
               >
                 <span>
@@ -53,7 +46,7 @@ const Cart = () => {
               </li>
             ))}
           </ul>
-          <h3>Total: ${totalPrice}</h3>
+          <h3>Total: ${getTotalPrice().toFixed(2)}</h3>
         </>
       )}
     </div>

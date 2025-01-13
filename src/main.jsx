@@ -1,10 +1,14 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App";
-import "./index.css";
+import { UserProvider } from "./context/UserContext"; 
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
   <React.StrictMode>
-    <App />
+    <UserProvider>
+        <App />
+    </UserProvider>
   </React.StrictMode>
 );
