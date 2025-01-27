@@ -1,19 +1,13 @@
-import React from "react";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
 
 const Profile = () => {
-  const userEmail = "usuario@ejemplo.com"; 
-
-  const handleLogout = () => {
-    alert("Sesión cerrada.");
-  };
+  const { email, logout } = useContext(UserContext);
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>Perfil de Usuario</h1>
-      <p>Email: {userEmail}</p>
-      <button onClick={handleLogout} style={{ padding: "10px 20px", cursor: "pointer" }}>
-        Cerrar Sesión
-      </button>
+    <div>
+      <h1>Bienvenido, {email}</h1>
+      <button onClick={logout}>Cerrar sesión</button>
     </div>
   );
 };

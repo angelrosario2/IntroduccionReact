@@ -9,87 +9,41 @@ const Navbar = () => {
 
   const total = cart.reduce((sum, item) => sum + item.price * item.count, 0);
 
+  const handleLogout = () => {
+    logout();
+    window.location.reload(); 
+  };
+
   return (
     <nav
       style={{
         display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        padding: "10px 20px",
-        backgroundColor: "#333",
-        color: "white",
+        justifyContent: "space-around",
+        padding: "10px",
+        background: "#f8f8f8",
       }}
     >
-      <div>
-        <Link
-          to="/"
-          style={{
-            marginRight: "15px",
-            color: "white",
-            textDecoration: "none",
-            fontWeight: "bold",
-          }}
-        >
-          🏠 Home
-        </Link>
-        {token ? (
-          <>
-            <Link
-              to="/profile"
-              style={{
-                marginRight: "15px",
-                color: "white",
-                textDecoration: "none",
-              }}
-            >
-              👤 Profile
-            </Link>
-            <button
-              onClick={logout}
-              style={{
-                background: "none",
-                border: "none",
-                color: "#e74c3c",
-                cursor: "pointer",
-                fontWeight: "bold",
-              }}
-            >
-              🚪 Logout
-            </button>
-          </>
-        ) : (
-          <>
-            <Link
-              to="/register"
-              style={{
-                marginRight: "15px",
-                color: "white",
-                textDecoration: "none",
-              }}
-            >
-              📝 Register
-            </Link>
-            <Link
-              to="/login"
-              style={{
-                color: "white",
-                textDecoration: "none",
-              }}
-            >
-              🔑 Login
-            </Link>
-          </>
-        )}
-      </div>
-      <Link
-        to="/cart"
-        style={{
-          color: "white",
-          textDecoration: "none",
-          fontWeight: "bold",
-        }}
-      >
-        🛒 Total: ${total.toFixed(2)}
+      <Link to="/">🏠 Home</Link>
+      
+      {token ? (
+        <>
+          <Link to="/profile">👤 Perfil</Link>
+          <button 
+            onClick={handleLogout} 
+            style={{ background: "none", border: "none", color: "red", cursor: "pointer" }}
+          >
+            🚪 Cerrar sesión
+          </button>
+        </>
+      ) : (
+        <>
+          <Link to="/register">📝 Registrarse</Link>
+          <Link to="/login">🔑 Iniciar sesión</Link>
+        </>
+      )}
+      
+      <Link to="/cart" style={{ fontWeight: "bold" }}>
+        🛒 Total: ${total}
       </Link>
     </nav>
   );
